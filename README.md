@@ -43,9 +43,10 @@ Once completed, a zip archive named `archive.zip` will be created. Next, we need
 
     oci os object put -bn <bucket_name> --namespace <namespace> --name archive.zip --file archive.zip
     
+
 ![](image/oci-bucket.png)
 
-## 4. Create the OCI Dataflow Application
+## 3. Create the OCI Dataflow Application
 
 OCI Dataflow is a Spark runtime that allows you to execute your Spark applications in Java, Scala, Python, or SQL. Additionally, the job will terminate all running resources once it is finished, making it cost-effective. We will use a pyspark job to leverage the [Spark BigQuery Connector](https://github.com/GoogleCloudDataproc/spark-bigquery-connector) to retrieve the data in BigQuery. The pyspark program is ready in github project path `dataflow-spark-bq-connector`.
 
@@ -53,4 +54,26 @@ We will use the program as the main entry point of OCI Dataflow application.
 
 For more information to how to createa a pyspark application, please refer to [Creating a PySpark Data Flow Application](https://docs.oracle.com/en-us/iaas/data-flow/using/dfs_create_pyspark_data_flow_app.htm#create_pyspark_app)
 
+
+## 4. Load the data from Object Storage to MySQL Heatwave
+Login to the MySQL database and run the scripts below to use Auto Parallel Load to load the data from Object Storage to Heatwave.
+
+    SET @input_list = '[
+    {
+      "db_name": "big_query",
+      "tables": [
+        "HRTrainingData",
+        {
+          "table_name": "ga_table",
+          "engine_attribute": {
+            "dialect": {"format": "json"},
+	   	  "file": [{"par": "https://objectstorage...oraclecloud.com/p/.../parquet/20250123/part--9ad650ae193c-c000.snappy.parquet" }]
+          }
+        }
+      ]
+  }]';
+
+  SET @options = JSON_OBJECT('mode', 'normal');
+
+  CALL sys.heatwave_load(CAST(@input_list AS JSON), @options);
 
