@@ -1,13 +1,17 @@
 # Google BigQuery to MySQL HeatWave
+Reference : [ga4-oci-adb-analytics](https://github.com/nikosheng/ga4-oci-adb-analytics/tree/main)
 
 ## 1. Obtain the GCP Service Account credential
 
-We need to configure a service account in GCP to allow the OCI Dataflow job to retrieve data, here are the roles we need to assign to the service account
-    - **BigQuery Data Viewer**
-    - **BigQuery Read Session User**
-    
+(1) Refer to this [VIDEO](https://www.youtube.com/watch?v=idoiDI2d3hE) to setup a account.
 For more information on how to create service account in GCP, please refer to
     [Create a service account](https://support.google.com/a/answer/7378726?hl=en)
+
+(2)Grant acccess
+
+
+(3) Add Key   
+
     
 After retrieving the service account in json format, we need it to be included in the dependencies archive zip file in following step.
 
