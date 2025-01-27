@@ -9,10 +9,10 @@ For more information on how to create service account in GCP, please refer to
     [Create a service account](https://support.google.com/a/answer/7378726?hl=en)
 
 #### (2) Grant acccess
-    ![](image/gcp-permissions.png)
+![](image/gcp-permissions.png)
 
 #### (3) Get the KEY JSON file  
-    ![](image/gcp-key.png)
+![](image/gcp-key.png)
     
 After retrieving the service account in json format, we need it to be included in the dependencies archive zip file in following step.
 
@@ -28,8 +28,8 @@ If you are using other environments, please ensure to install `docker` before ru
 #### (1) Upload the folder `dataflow_archive_dependencies` to Cloud Shell
 
 #### (2) Check the Cloud Shell Architecture is "X86_64"
-    ![](image/oci-architecture-1.png)
-    ![](image/oci-architecture-2.png)
+![](image/oci-architecture-1.png)
+![](image/oci-architecture-2.png)
     
 #### (3) Run the command to provision the `dependency-packager` image to create the zip archive.
     
@@ -43,14 +43,14 @@ Once completed, a zip archive named `archive.zip` will be created. Next, we need
 
     oci os object put -bn <bucket_name> --namespace <namespace> --name archive.zip --file archive.zip
     
-    ![](image/oci-bucket.png)
+![](image/oci-bucket.png)
 
 ## 4. Create the OCI Dataflow Application
 
 OCI Dataflow is a Spark runtime that allows you to execute your Spark applications in Java, Scala, Python, or SQL. Additionally, the job will terminate all running resources once it is finished, making it cost-effective. We will use a pyspark job to leverage the [Spark BigQuery Connector](https://github.com/GoogleCloudDataproc/spark-bigquery-connector) to retrieve the data in BigQuery. The pyspark program is ready in github project path `dataflow-spark-bq-connector`.
 
-   We will use the program as the main entry point of OCI Dataflow application.
+We will use the program as the main entry point of OCI Dataflow application.
 
-   For more information to how to createa a pyspark application, please refer to [Creating a PySpark Data Flow Application](https://docs.oracle.com/en-us/iaas/data-flow/using/dfs_create_pyspark_data_flow_app.htm#create_pyspark_app)
+For more information to how to createa a pyspark application, please refer to [Creating a PySpark Data Flow Application](https://docs.oracle.com/en-us/iaas/data-flow/using/dfs_create_pyspark_data_flow_app.htm#create_pyspark_app)
 
 
