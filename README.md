@@ -8,7 +8,7 @@ For more information on how to create service account in GCP, please refer to
     [Create a service account](https://support.google.com/a/answer/7378726?hl=en)
 
 (2)Grant acccess
-    ![](image/gcp-permissions)
+    ![](image/gcp-permissions.png)
 
 (3) Add Key   
 
