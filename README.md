@@ -1,7 +1,7 @@
 # bigquery-to-heatwave
 Google BigQuery to MySQL HeatWave
 
-1. ## Obtain the GCP Service Account credential
+## 1. Obtain the GCP Service Account credential
 
     We need to configure a service account in GCP to allow the OCI Dataflow job to retrieve data, here are the roles we need to assign to the service account
     - **BigQuery Data Viewer**
@@ -12,7 +12,7 @@ Google BigQuery to MySQL HeatWave
     
     After retrieving the service account in json format, we need it to be included in the dependencies archive zip file in following step.
 
-2. ## Preapare the OCI Dataflow Dependencies
+## 2. Preapare the OCI Dataflow Dependencies
 
     A `Dependency Archive` is a zip file that contains the necessary dependencies for a running Spark program. In OCI DataFlow, it is recommended to prepare these dependencies in advance and store them in OCI Object Storage. We will create a compressed zip file named `archive.zip` using a Docker-based tool. This `archive.zip` will be installed on all Spark nodes before running the application.
 
@@ -21,7 +21,7 @@ Google BigQuery to MySQL HeatWave
 
     If you are using other environments, please ensure to install `docker` before running the following steps.
 
-3. ## Create Zip Archive to include the OCI Dataflow Dependencies
+## 3. Create Zip Archive to include the OCI Dataflow Dependencies
 
     Please go to folder `dataflow_archive_dependencies` to make sure all the dependencies jars are ready. In this codebase, I have prepared the compulsory dependencies but please be reminded that you may need additional dependencies to cater for your real use cases.
     
@@ -38,7 +38,7 @@ Google BigQuery to MySQL HeatWave
     oci os object put -bn <bucket_name> --namespace <namespace> --name dependencies/bigquery/archive.zip --file archive.zip
     ```
 
-4. ## Create the OCI Dataflow Application
+## 4. Create the OCI Dataflow Application
 
     OCI Dataflow is a Spark runtime that allows you to execute your Spark applications in Java, Scala, Python, or SQL. Additionally, the job will terminate all running resources once it is finished, making it cost-effective. We will use a pyspark job to leverage the [Spark BigQuery Connector](https://github.com/GoogleCloudDataproc/spark-bigquery-connector) to retrieve the data in BigQuery. The pyspark program is ready in github project path `dataflow-spark-bq-connector`.
 
