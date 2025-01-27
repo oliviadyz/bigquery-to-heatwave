@@ -4,13 +4,14 @@ Reference : [ga4-oci-adb-analytics](https://github.com/nikosheng/ga4-oci-adb-ana
 ## 1. Obtain the GCP Service Account credential
 
 (1) Refer to this [VIDEO](https://www.youtube.com/watch?v=idoiDI2d3hE) to setup a account.
+
 For more information on how to create service account in GCP, please refer to
     [Create a service account](https://support.google.com/a/answer/7378726?hl=en)
 
 (2)Grant acccess
     ![](image/gcp-permissions.png)
 
-(3) Add Key   
+(3) Get the KEY JSON file  
     ![](image/gcp-key.png)
     
 After retrieving the service account in json format, we need it to be included in the dependencies archive zip file in following step.
@@ -24,22 +25,22 @@ OCI provides `Cloud Shell` for users to prepare the `archive.zip`, and for more 
 
 If you are using other environments, please ensure to install `docker` before running the following steps.
 
-## 3. Create Zip Archive to include the OCI Dataflow Dependencies
+(1) Create Zip Archive to include the OCI Dataflow Dependencies
 
 Please go to folder `dataflow_archive_dependencies` to make sure all the dependencies jars are ready. In this codebase, I have prepared the compulsory dependencies but please be reminded that you may need additional dependencies to cater for your real use cases.
     
 Then we can run the command to provision the `dependency-packager` image to create the zip archive.
     
-    ```
-    docker run --rm --user root -v $(pwd):/opt/dataflow -it phx.ocir.io/axmemlgtri2a/dataflow/dependency-packager-linux_x86_64:latest -p 3.11
-    ```
 
-Once completed, a zip archive named `archive.zip` will be created. Next, we need to add the GCP service account JSON file to the archive. I suggest unzipping the archive first, placing the service account JSON file in the `python/lib/<service_account>.json` path, and then zipping the folder again with the name `archive.zip`.
+    docker run --rm --user root -v $(pwd):/opt/dataflow -it phx.ocir.io/axmemlgtri2a/dataflow/dependency-packager-linux_x86_64:latest -p 3.11
+
+
+Once completed, a zip archive named `archive.zip` will be created. Next, we need to add the GCP service account KEY JSON file to the archive. I suggest unzipping the archive first, placing the service account JSON file in the `python/lib/<service_account>.json` path, and then zipping the folder again with the name `archive.zip`.
 
 Finally, we can upload the `archive.zip` file to OCI Object Storage.
-    ```
+
     oci os object put -bn <bucket_name> --namespace <namespace> --name dependencies/bigquery/archive.zip --file archive.zip
-    ```
+
 
 ## 4. Create the OCI Dataflow Application
 
