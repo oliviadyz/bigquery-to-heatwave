@@ -11,7 +11,7 @@ For more information on how to create service account in GCP, please refer to
     ![](image/gcp-permissions.png)
 
 (3) Add Key   
-
+    ![](image/gcp-key.png)
     
 After retrieving the service account in json format, we need it to be included in the dependencies archive zip file in following step.
 
