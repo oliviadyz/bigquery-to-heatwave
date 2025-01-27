@@ -31,11 +31,9 @@ If you are using other environments, please ensure to install `docker` before ru
 ![](image/oci-architecture-1.png)
 ![](image/oci-architecture-2.png)
     
-#### (3) Run the command to provision the `dependency-packager` image to create the zip archive.
-    
+#### (3) Run the command to provision the `dependency-packager` image to create the zip archive.   
 
     docker run --rm --user root -v $(pwd):/opt/dataflow -it phx.ocir.io/axmemlgtri2a/dataflow/dependency-packager-linux_x86_64:latest -p 3.11
-
 
 Once completed, a zip archive named `archive.zip` will be created. Next, we need to add the GCP service account KEY JSON file to the archive. I suggest unzipping the archive first, placing the service account JSON file in the `python/lib/<service_account>.json` path, and then zipping the folder again with the name `archive.zip`.
 
@@ -43,7 +41,6 @@ Once completed, a zip archive named `archive.zip` will be created. Next, we need
 
     oci os object put -bn <bucket_name> --namespace <namespace> --name archive.zip --file archive.zip
     
-
 ![](image/oci-bucket.png)
 
 ## 3. Create the OCI Dataflow Application
@@ -71,9 +68,9 @@ Login to the MySQL database and run the scripts below to use Auto Parallel Load 
           }
         }
       ]
-  }]';
+    }]';
 
-  SET @options = JSON_OBJECT('mode', 'normal');
+    SET @options = JSON_OBJECT('mode', 'normal');
 
-  CALL sys.heatwave_load(CAST(@input_list AS JSON), @options);
+    CALL sys.heatwave_load(CAST(@input_list AS JSON), @options);
 
