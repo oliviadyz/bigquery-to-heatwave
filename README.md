@@ -3,15 +3,15 @@ Reference : [ga4-oci-adb-analytics](https://github.com/nikosheng/ga4-oci-adb-ana
 
 ## 1. Obtain the GCP Service Account credential
 
-### (1) Refer to this [VIDEO](https://www.youtube.com/watch?v=idoiDI2d3hE) to setup a account.
+#### (1) Refer to this [VIDEO](https://www.youtube.com/watch?v=idoiDI2d3hE) to setup a account.
 
 For more information on how to create service account in GCP, please refer to
     [Create a service account](https://support.google.com/a/answer/7378726?hl=en)
 
-### (2) Grant acccess
+#### (2) Grant acccess
     ![](image/gcp-permissions.png)
 
-### (3) Get the KEY JSON file  
+#### (3) Get the KEY JSON file  
     ![](image/gcp-key.png)
     
 After retrieving the service account in json format, we need it to be included in the dependencies archive zip file in following step.
@@ -25,13 +25,13 @@ OCI provides `Cloud Shell` for users to prepare the `archive.zip`, and for more 
 
 If you are using other environments, please ensure to install `docker` before running the following steps.
 
-### (1) Upload the folder `dataflow_archive_dependencies` to Cloud Shell
+#### (1) Upload the folder `dataflow_archive_dependencies` to Cloud Shell
 
-### (2) Check the Cloud Shell Architecture is "X86_64"
+#### (2) Check the Cloud Shell Architecture is "X86_64"
     ![](image/oci-architecture-1.png)
     ![](image/oci-architecture-2.png)
     
-### (3) Run the command to provision the `dependency-packager` image to create the zip archive.
+#### (3) Run the command to provision the `dependency-packager` image to create the zip archive.
     
 
     docker run --rm --user root -v $(pwd):/opt/dataflow -it phx.ocir.io/axmemlgtri2a/dataflow/dependency-packager-linux_x86_64:latest -p 3.11
@@ -39,7 +39,7 @@ If you are using other environments, please ensure to install `docker` before ru
 
 Once completed, a zip archive named `archive.zip` will be created. Next, we need to add the GCP service account KEY JSON file to the archive. I suggest unzipping the archive first, placing the service account JSON file in the `python/lib/<service_account>.json` path, and then zipping the folder again with the name `archive.zip`.
 
-### (4) Upload the `archive.zip` file to OCI Object Storage.
+#### (4) Upload the `archive.zip` file to OCI Object Storage.
 
     oci os object put -bn <bucket_name> --namespace <namespace> --name archive.zip --file archive.zip
     
