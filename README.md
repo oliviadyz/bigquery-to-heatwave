@@ -55,6 +55,12 @@ For more information to how to createa a pyspark application, please refer to [C
 
 
 ## 4. Load the data from Object Storage to MySQL Heatwave
+
+#### (1) Get the data file's Pre-Authenticated Request URL
+![](image/pre-auth1.png)
+![](image/pre-auth2.png)
+
+#### (2) Load the data from Object Storage to Heatwave
 Login to the MySQL database and run the scripts below to use Auto Parallel Load to load the data from Object Storage to Heatwave.
 
     SET @input_list = '[
@@ -66,7 +72,7 @@ Login to the MySQL database and run the scripts below to use Auto Parallel Load 
           "table_name": "ga_table",
           "engine_attribute": {
             "dialect": {"format": "json"},
-	   	  "file": [{"par": "https://objectstorage...oraclecloud.com/p/.../parquet/20250123/part--9ad650ae193c-c000.snappy.parquet" }]
+	   	  "file": [{"par": "<Pre-Authenticated Request URL>" }]
           }
         }
       ]
