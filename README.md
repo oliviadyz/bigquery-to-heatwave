@@ -52,6 +52,7 @@ We will use the program as the main entry point of OCI Dataflow application.
 For more information to how to createa a pyspark application, please refer to [Creating a PySpark Data Flow Application](https://docs.oracle.com/en-us/iaas/data-flow/using/dfs_create_pyspark_data_flow_app.htm#create_pyspark_app)
 
 ![](image/app1.png)
+![](image/app2.png)
 
 
 ## 4. Load the data from Object Storage to MySQL Heatwave
