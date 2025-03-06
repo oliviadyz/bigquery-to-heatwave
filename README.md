@@ -68,7 +68,7 @@ Login to the MySQL database and run the scripts below to use Auto Parallel Load 
     {
       "db_name": "big_query",
       "tables": [
-        "HRTrainingData",
+        "ga_table",
         {
           "table_name": "ga_table",
           "engine_attribute": {
