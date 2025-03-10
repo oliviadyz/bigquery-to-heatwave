@@ -83,3 +83,6 @@ Login to the MySQL database and run the scripts below to use Auto Parallel Load 
 
     CALL sys.heatwave_load(CAST(@input_list AS JSON), @options);
 
+
+## -------------------------
+Learn More : [How to Get the Best out of Google Analytics Data with HeatWave Lakehouse](https://blogs.oracle.com/mysql/post/how-to-get-the-best-out-of-google-analytics-data-with-heatwave-lakehouse)
