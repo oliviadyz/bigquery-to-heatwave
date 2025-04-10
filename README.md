@@ -1,6 +1,8 @@
 # Google BigQuery to MySQL HeatWave
 Reference : [ga4-oci-adb-analytics](https://github.com/nikosheng/ga4-oci-adb-analytics/tree/main)
 
+![](image/flow.png)
+
 ## 1. Obtain the GCP Service Account credential
 
 #### (1) Refer to this [VIDEO](https://www.youtube.com/watch?v=idoiDI2d3hE) to setup a account.
@@ -56,7 +58,14 @@ For more information to how to createa a pyspark application, please refer to [C
 
 
 ## 4. Load the data from Object Storage to MySQL Heatwave
+### Option 1 : Automatically
+#### (1) Create application in OCI Functions to load data to Heatwave
+We will use the serverless runtime in OCI Functions, which is triggerd by Object Events. 
 
+Please refer to folder oci-functions-ga4-scheduler for details. In addition, you can refer to Getting Started on OCI Functions to provision a OCI Functions application.
+
+
+### Option 2 : Manually
 #### (1) Get the data file's Pre-Authenticated Request URL
 ![](image/pre-auth1.png)
 ![](image/pre-auth2.png)
