@@ -1,6 +1,7 @@
 # Google BigQuery to MySQL HeatWave
 Reference : [ga4-oci-adb-analytics](https://github.com/nikosheng/ga4-oci-adb-analytics/tree/main)
 
+## 0. Architecture
 ![](image/flow.png)
 
 ## 1. Obtain the GCP Service Account credential
@@ -58,14 +59,9 @@ For more information to how to createa a pyspark application, please refer to [C
 
 
 ## 4. Load the data from Object Storage to MySQL Heatwave
-### Option 1 : Automatically
-#### (1) Create application in OCI Functions to load data to Heatwave
-We will use the serverless runtime in OCI Functions, which is triggerd by Object Events. 
 
-Please refer to folder oci-functions-ga4-scheduler for details. In addition, you can refer to Getting Started on OCI Functions to provision a OCI Functions application.
+### Option 1 : Manually
 
-
-### Option 2 : Manually
 #### (1) Get the data file's Pre-Authenticated Request URL
 ![](image/pre-auth1.png)
 ![](image/pre-auth2.png)
@@ -77,9 +73,9 @@ Login to the MySQL database and run the scripts below to use Auto Parallel Load 
     {
       "db_name": "big_query",
       "tables": [
-        "ga_table",
+        "ga_events_json",
         {
-          "table_name": "ga_table",
+          "table_name": "ga_events_json",
           "engine_attribute": {
             "dialect": {"format": "json"},
 	   	  "file": [{"par": "<Pre-Authenticated Request URL>" }]
@@ -91,6 +87,27 @@ Login to the MySQL database and run the scripts below to use Auto Parallel Load 
     SET @options = JSON_OBJECT('mode', 'normal');
 
     CALL sys.heatwave_load(CAST(@input_list AS JSON), @options);
+
+### Option 2 : Automatically
+
+#### *** Do above Optoon 1 once to create the table that matches your data OR you can create the table in advance.
+
+#### (1) Create application in OCI Functions to load data to Heatwave
+We will use the serverless runtime in OCI Functions, which is triggerd by Object Events. 
+
+Please refer to folder `bigquery-heatwave-py` for details. In addition, you can refer to [Getting Started on OCI Functions](https://docs.oracle.com/en-us/iaas/Content/Functions/Tasks/functionsquickstartlocalhost.htm#functionsquickstartlocalhost) to provision a OCI Functions application.
+![](image/functions1.png)
+![](image/functions2.png)
+![](image/functions3.png)
+
+#### (2) Create Rules in Events Service
+![](image/events_rules1.png)
+![](image/events_rules2.png)
+
+#### (3) Enable "Emit Object Events"
+![](image/events_object.png)
+
+
 
 
 ## -------------------------
